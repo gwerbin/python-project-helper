@@ -8,9 +8,26 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'python-project-helper'
-requires-python = '>= 3.8'
 dynamic = [ 'version' ]
+
+requires-python = '>= 3.8'
 dependencies = [ 'build' ]
+
+readme = { file = 'README.adoc', content-type = 'text/asciidoc' }
+license = { file = 'LICENSE' }
+authors = [
+  { name = 'Gregory Werbin', email = 'outthere@me.gregwerbin.com' },
+]
+
+classifiers = [
+  'Programming Language :: Python',
+  'Development Status :: 4 - Beta',
+]
+
+[project.urls]
+Changelog = 'https://github.com/gwerbin/python-project-helper/blob/main/CHANGELOG.adoc'
+Source code (Github) = 'https://github.com/gwerbin/python-project-helper'
+Source code (Sourcehut) = 'https://git.sr.ht/~wintershadows/python-project-helper'
 
 [project.optional-dependencies]
 tests = [
