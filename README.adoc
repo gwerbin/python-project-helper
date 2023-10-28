@@ -1,5 +1,23 @@
 = PPH: Python Project Helper
 
+== Usage
+
+.Usage outline
+[,shell]
+----
+pph
+
+pph project
+pph project inspect
+
+pph env
+pph env create {name}
+pph env delete {name}
+----
+
+
+== Dev instructions
+
 .Recommended setup
 [source,shell#setup-script]
 ----
