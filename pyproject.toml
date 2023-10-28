@@ -29,3 +29,9 @@ pph = 'python_project_helper:main'
 
 [tool.setuptools_scm]
 version_file = "src/python_project_helper/_version.py"
+
+
+[tool.pph.env.dev]
+extras = ['tests']
+
+[tool.pph.env.default]
