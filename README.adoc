@@ -1,13 +1,58 @@
 = PPH: Python Project Helper
 
+PPH (Python Project Helper) is a tool designed to help develop Python software projects.
+
+It is intended to be similar to https://python-poetry.org/[Poetry] or https://hatch.pypa.io/[Hatch], in that it helps you do things like create isolated virtual environments for your project. However, it is _unlike_ Poetry or Hatch in that it does not implement its own https://peps.python.org/pep-0517/[PEP 517] build backend. Instead, PPH works with _any_ build backend, using existing tools to build packages using the standard PEP 517 interface.
+
+It is therefore also intended to be similar to https://pipenv.pypa.io/[Pipenv], being primarily a wrapper around existing tools. However, it is _unlike_ Pipenv in that Pipenv is explicitly only designed to support the case of building an "application" and not a "library". Instead, PPH makes no assumptions about the purpose or structure of your project.
+
+The PPH command-line and `pyproject.toml` interfaces are loosely inspired by Hatch, but I make no claim or attempt at direct compatibility.
+
+.Features
+[%autowidth]
+|===
+|Feature |Status
+
+|Automatically create venvs for your project |*Done* but still adding features
+|Inspect and extract project metadata |*WIP*
+|JSON output for scripting |*WIP*
+|Run project scripts |*TODO*
+|Build wheels, wrapping https://pypi.org/project/build/[Build] |*TODO*
+|Upload to PyPI, wrapping https://pypi.org/project/twine/[Twine] |*TODO*
+|CLI documentation & man page |*TODO*
+|Stable Python API with documentation + readthedocs hosting |*TODO*
+|Test suite |*TODO*
+|CI/CD |*TODO*
+|Repo packaging |*TODO*
+|Generate "locked" requirements files, wrapping https://pypi.org/project/pip-tools/[Pip-tools] |*TODO*
+|Better UI/UX: shell completion, separating detailed logs from informational output, progress bars, etc. |*TODO*
+|"Matrix" environments and/or add an interface to Tox or Nox |*Speculative*
+|Pass extra arguments to underlying tools (Pip, Venv, etc) |*TODO*/*Speculative*
+|Support https://pdm.fming.dev/latest/[PDM] as a drop-in replacement for Pip? |*Speculative*
+|Support https://virtualenv.pypa.io/[Virtualenv] as a drop-in replacement for Venv? |*Speculative*
+|===
+
+I am deeply grateful to the many developers working hard on the Python packaging ecosystem, and I mean no disrespect or negativity towards other projects. I built this tool to meet my own needs, but I hope it will be useful to other people.
+
+Contributions are welcome, but I am doing this in my spare time and I can't guarantee rapid movement on anything.
+
+**WARNING**: PPH is _alpha-quality_ software under active development. The CLI and its output formats are subject to change. Not currently suitable for scripting.
+
+
 == Installation
+
+[Pipx](https://pypa.github.io/pipx/) is recommended for installing PPH for general-purpose use. However it may also be installed using Pip or any other PyPI-compatible package manager (such as PDM).
+
+In the future, I hope to package PPH for package managers such as Homebrew, Macports, Arch Linux, Debian, etc.
 
 .Installation
 [,shell]
 ----
+# Install into the current environment:
 pip install python-project-helper
 
-pph --help
+# Install into an isolated environment with Pipx:
+pipx install python-project-helper
 ----
 
 == Usage
@@ -24,6 +69,8 @@ pph env
 pph env create {name}
 pph env delete {name}
 ----
+
+Virtual environments are created inside `+$XDG_STATE_HOME/python-project-helper/`. The format inside this directory is subject to change; do not depend on it for now.
 
 
 == Dev instructions
