@@ -1,4 +1,5 @@
 build
+twine
 setuptools
 setuptools-scm
 
