@@ -41,7 +41,7 @@ Contributions are welcome, but I am doing this in my spare time and I can't guar
 
 == Installation
 
-[Pipx](https://pypa.github.io/pipx/) is recommended for installing PPH for general-purpose use. However it may also be installed using Pip or any other PyPI-compatible package manager (such as PDM).
+https://pypa.github.io/pipx/[Pipx] is recommended for installing PPH for general-purpose use. However it may also be installed using Pip or any other PyPI-compatible package manager (such as PDM).
 
 In the future, I hope to package PPH for package managers such as Homebrew, Macports, Arch Linux, Debian, etc.
 
