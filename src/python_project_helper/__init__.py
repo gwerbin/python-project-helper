@@ -18,7 +18,7 @@ from enum import Enum, auto
 from hashlib import sha1
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any, Self, TypeAlias
+from typing import Any, ClassVar, Self, TypeAlias
 
 __version__: str | None
 __version_tuple__: tuple[int | str, ...] | None
@@ -106,9 +106,15 @@ class Settings:
     envs: Sequence[Mapping[str, TOML_ro]]
     # output_format: OutputFormat
 
+    # Similar to TOML "bare" key format: https://toml.io/en/v1.0.0#keys
+    env_name_pattern: ClassVar[re.Pattern] = re.compile(r"^[A-Za-z_][A-Za-z0-9@._-]*$")
+
     def validate(self) -> None:
         if not self.project_root.exists():
             raise InvalidSettings(f"Project root directory does not exist: {self.project_root}")
+        for env_name in envs.keys():
+            if not self.env_name_pattern.search(env_name):
+                raise InvalidSettings(f"Invalid env name: {env_name!r}")
 
     def get_project_id(self) -> Path:
         return sha1(bytes(self.project_root)).hexdigest()
@@ -146,6 +152,7 @@ class Cmd_Project_Inspect(CmdBase):
     def run(self) -> None:
         print(format(self.settings, "json:2"))
         return None
+
 
 @dataclasses.dataclass
 class Cmd_Env_Create(CmdBase):
@@ -207,6 +214,17 @@ class Cmd_Env_Delete(CmdBase):
         shutil.rmtree(venv_dir)
 
 
+@dataclasses.dataclass
+class Cmd_Env_Show(CmdBase):
+    name: str
+
+    def run(self) -> None:
+        if self.name not in self.settings.envs:
+            raise UserError(f"Unknown environment: {self.name}")
+        venv_dir = self.settings.get_venv_dir(self.name)
+        print(f"{self.name}: {venv_dir}")
+
+
 main_parser = argparse.ArgumentParser()
 main_parser.add_argument("--version", action="version", version=f"Python Project Helper {__version__ or '<unknown>'}")
 # main_parser.add_argument("--output", default=OutputFormat.simple, choices=OutputFormat.choices())
@@ -222,6 +240,10 @@ env_create_parser.add_argument("name", help="Environment name.")
 env_delete_parser = env_subparsers.add_parser("delete")
 env_delete_parser.set_defaults(cls=Cmd_Env_Delete)
 env_delete_parser.add_argument("name", help="Environment name.")
+
+env_create_parser = env_subparsers.add_parser("show")
+env_create_parser.set_defaults(cls=Cmd_Env_Show)
+env_create_parser.add_argument("name", help="Environment name.")
 
 project_parser = main_subparsers.add_parser("project")
 project_subparsers = project_parser.add_subparsers(title="subcommands")
@@ -262,7 +284,8 @@ def main() -> int | None:
     with pyproject_file.open("rb") as fp:
         pyproject_data: dict[str, TOML_ro] = tomllib.load(fp)
 
-    pph_envs = pyproject_data.get("tool", {}).get("pph", {}).get("env", {"default": {}})
+    pph_envs = pyproject_data.get("tool", {}).get("pph", {}).get("env")
+    pph_envs.setdefault("default", {})
 
     settings = Settings(
         project_root=pyproject_file.parent,
