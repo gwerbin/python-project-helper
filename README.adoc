@@ -56,3 +56,10 @@ source dev.venv/bin/activate
 ----
 dev.venv/bin/python -m build
 ----
+
+.Publishing
+[source,shell#building]
+----
+dev.venv/bin/twine upload -r testpypi dist/*~*+g*
+dev.venv/bin/twine upload dist/*~*+g*
+----
