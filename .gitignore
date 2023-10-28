@@ -1,0 +1,62 @@
+## Various artifacts
+
+__pycache__/
+
+dist/
+.cache/
+
+.coverage
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+
+
+## IDEs and other dev tools
+
+# Ad-hoc venvs
+venv/
+*.venv/
+
+# Ctags
+tags
+TAGS
+
+# Vim
+Session.vim
+
+# VS Code
+# https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# PyCharm
+# https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/aws.xml
+*.iws
+
+# Sublime Text
+# https://github.com/github/gitignore/blob/main/Global/SublimeText.gitignore
+*.sublime-workspace
+
+
+## MacOS
+
+.DS_Store
