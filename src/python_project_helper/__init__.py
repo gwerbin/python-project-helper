@@ -13,7 +13,7 @@ import tomllib
 import traceback
 import venv
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from enum import Enum, auto
 from hashlib import sha1
 from pathlib import Path
@@ -24,6 +24,9 @@ try:
     from ._version import __version__
 except ImportError:
     __version__ = "<unknown>"
+
+
+TOML_ro: TypeAlias = int | float | str | None | list['TOML_ro'] | dict[str, 'TOML_ro']
 
 
 # def _getenv__xdg_config_home() -> Path:
@@ -74,6 +77,9 @@ class InvalidSettings(ValueError):
         return f"ERROR, invalid settings! {self.message}"
 
 
+class UserError(ValueError):
+    pass
+
 # class OutputFormat(Enum):
 #     simple = auto()
 #     json = auto()
@@ -94,7 +100,7 @@ class JSONEncoder(json.JSONEncoder):
 class Settings:
     # pph_home: Path
     project_root: Path
-    envs: Sequence[str]
+    envs: Sequence[Mapping[str, TOML_ro]]
     # output_format: OutputFormat
 
     def validate(self) -> None:
@@ -138,31 +144,51 @@ class Cmd_Project_Inspect(CmdBase):
         print(format(self.settings, "json:2"))
         return None
 
-
 @dataclasses.dataclass
 class Cmd_Env_Create(CmdBase):
     name: str
-    clear: bool = False
 
     def run(self) -> None:
+        # TODO: Use a class instead of a dict
+        try:
+            project_env: Mapping[str, TOML_ro] = self.settings.envs[self.name]
+        except KeyError:
+            raise UserError(f"Not a project environment: {self.name!r}")
+
+        extras: Sequence[str] = project_env.get("extras", [])
+        if not isinstance(extras, Sequence) and not all(isinstance(e, str) for e in extras):
+            raise UserError(f"Invalid env.extras: {extras!r}")
+
+        # Create venv
+
         venv_dir = self.settings.get_venv_dir(self.name)
         print(f"Creating environment: {venv_dir}")
 
-        # print(f"{sys.executable} -m venv {venv_dir}")
+        print(f"{sys.executable} -m venv {venv_dir}")
         builder = venv.EnvBuilder(
-            clear=self.clear,
+            # TODO: Is there ever a reason not to use this?
+            # We can add a separate "update" command that doesn't clear.
+            clear=True,
             symlinks=os.name != "nt",  # https://github.com/python/cpython/blob/0fb18b02c8ad56299d6a2910be0bab8ad601ef24/Lib/venv/__init__.py#L491-L494
             upgrade=False,
             with_pip=True,
             upgrade_deps=True,
         )
         builder.create(venv_dir)
-
         context = builder.ensure_directories(venv_dir)  # There's no other way to get this!
         venv_python: str = context.env_exec_cmd
 
-        cmd = [venv_python, "-m", "pip", "install", "-e", "."]
-        # print(shlex.join(cmd))
+        # Install
+
+        # If this fails, we don't need to delete the environemtn, we cause we use
+        # `clear=True`, so the next (successful) run will discard the failed artifacts.
+
+        this = "."
+        if extras:
+            this += "[ " + ",".join(extras) + " ]"
+        # TODO: Support passing extra Pip options from Pyproject, CLI flags, and/or env var
+        cmd = [venv_python, "-m", "pip", "install", "--editable", this]
+        print(shlex.join(cmd))
         sys.stdout.flush()
         subprocess.run(cmd)
 
@@ -221,9 +247,6 @@ def error(*args: Any, **kwargs: Any) -> None:
     print(*args, file=sys.stderr, **kwargs)
 
 
-TOML_ro: TypeAlias = int | float | str | None | list['TOML_ro'] | dict[str, 'TOML_ro']
-
-
 def main() -> int | None:
 
     args = main_parser.parse_args()
@@ -244,10 +267,19 @@ def main() -> int | None:
         # output_format=...,
     )
 
-    cls: CmdBase = args.cls
-    del args.cls
-    cmd = cls(settings=settings, **args.__dict__)
+    retval = None
 
-    cmd.run()
-    return None
+    cls: CmdBase = getattr(args, "cls", None)
+    if cls:
+        del args.cls
+        cmd = cls(settings=settings, **args.__dict__)
+        try:
+            cmd.run()
+        except UserError as exc:
+            print(exc)
+            retval = 1
+    else:
+        main_parser.parse_args(sys.argv[1:] + ["--help"])
+
+    return retval
 
