@@ -1,5 +1,15 @@
 = PPH: Python Project Helper
 
+== Installation
+
+.Installation
+[,shell]
+----
+pip install python-project-helper
+
+pph --help
+----
+
 == Usage
 
 .Usage outline
