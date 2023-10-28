@@ -20,10 +20,13 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, Self, TypeAlias
 
+__version__: str | None
+__version_tuple__: tuple[int | str, ...] | None
 try:
     from ._version import __version__
 except ImportError:
-    __version__ = "<unknown>"
+    __version__ = None
+    __version_tuple__ = None
 
 
 TOML_ro: TypeAlias = int | float | str | None | list['TOML_ro'] | dict[str, 'TOML_ro']
@@ -205,7 +208,7 @@ class Cmd_Env_Delete(CmdBase):
 
 
 main_parser = argparse.ArgumentParser()
-main_parser.add_argument("--version", action="version", version=f"Python Project Helper {__version__}")
+main_parser.add_argument("--version", action="version", version=f"Python Project Helper {__version__ or '<unknown>'}")
 # main_parser.add_argument("--output", default=OutputFormat.simple, choices=OutputFormat.choices())
 main_subparsers = main_parser.add_subparsers(title="subcommands")
 
