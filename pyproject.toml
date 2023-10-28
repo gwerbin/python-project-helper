@@ -26,8 +26,8 @@ classifiers = [
 
 [project.urls]
 Changelog = 'https://github.com/gwerbin/python-project-helper/blob/main/CHANGELOG.adoc'
-Source code (Github) = 'https://github.com/gwerbin/python-project-helper'
-Source code (Sourcehut) = 'https://git.sr.ht/~wintershadows/python-project-helper'
+'Source code (Github)' = 'https://github.com/gwerbin/python-project-helper'
+'Source code (Sourcehut)' = 'https://git.sr.ht/~wintershadows/python-project-helper'
 
 [project.optional-dependencies]
 tests = [
