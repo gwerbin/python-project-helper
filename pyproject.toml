@@ -7,7 +7,7 @@ build-backend = 'setuptools.build_meta'
 
 
 [project]
-name = 'tive-platform-warehouse-sensor-sync'
+name = 'python-project-helper'
 requires-python = '>= 3.8'
 dynamic = [
   'version',
@@ -20,8 +20,12 @@ tests = [
   'pytest-mock',
   'coverage',
   'hypothesis',
+  'mypy ~= 1.0',
 ]
+
+[project.scripts]
+pph = 'python_project_helper:main'
 
 
 [tool.setuptools_scm]
-# version_file = "src/python_project_helper/_version.py"
+version_file = "src/python_project_helper/_version.py"

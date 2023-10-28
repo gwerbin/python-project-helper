@@ -23,7 +23,7 @@ from typing import Any, Self, TypeAlias
 try:
     from ._version import __version__
 except ImportError:
-    __version__ = "<unknown"
+    __version__ = "<unknown>"
 
 
 # def _getenv__xdg_config_home() -> Path:

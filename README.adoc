@@ -1,0 +1,40 @@
+= PPH: Python Project Helper
+
+.Recommended setup
+[source,shell#setup-script]
+----
+#!/bin/sh
+
+set -eux
+
+git clone git@git.sr.ht:~wintershadows/python-project-helper pph
+cd pph
+
+sourcehut='git@git.sr.ht:~wintershadows/python-project-helper'
+github='git@github.com:gwerbin/python-project-helper.git'
+
+git config user.name '...'
+git config user.email '...'
+git config user.signingkey '...'
+
+git remote add sourcehut "$sourcehut"
+git remote add github "$github"
+git remote add all "$sourcehut"
+# https://stackoverflow.com/a/14290145/2954547
+git remote set-url --add --push all "$sourcehut"
+git remote set-url --add --push all "$github"
+
+python -m venv dev.venv
+dev.venv/bin/pip install --upgrade pip wheel
+dev.venv/bin/pip install \
+  --requirement requirements-dev.in \
+  --editable '.[tests]'
+
+source dev.venv/bin/activate
+----
+
+.Building
+[source,shell#building]
+----
+dev.venv/bin/python -m build
+----

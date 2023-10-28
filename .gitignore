@@ -1,7 +1,10 @@
 ## Various artifacts
 
+src/python_project_helper/_version.py
+
 __pycache__/
 
+*.egg-info
 dist/
 .cache/
 
@@ -16,6 +19,18 @@ dist/
 # Ad-hoc venvs
 venv/
 *.venv/
+
+# Dotenv
+.env
+
+# Direnv
+.envrc
+
+# Zsh Autoenv
+.in
+.out
+.autoenv-in
+.autoenv-out
 
 # Ctags
 tags
