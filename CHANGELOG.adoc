@@ -1,0 +1,17 @@
+= Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog].
+
+== Unreleased
+
+== v0.2.1 (2023-10-28)
+
+=== Added
+
+- `pph env show` command.
+
+=== Fixed
+
+- The `default` environment now always exists, even when other envs are defined.
