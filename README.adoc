@@ -60,6 +60,17 @@ dev.venv/bin/python -m build
 .Publishing
 [source,shell#building]
 ----
-dev.venv/bin/twine upload -r testpypi dist/*~*+g*
+# dev.venv/bin/twine upload --sign --identity '...' --repository testpypi dist/*~*+g*
+dev.venv/bin/twine upload --repository testpypi dist/*~*+g*
+python -m venv --clear test.venv
+test.venv/bin/pip install --index-url https://test.pypi.org/simple/ python-project-helper
+test.venv/bin/pph project inspect
+
+# dev.venv/bin/twine upload --sign --identity '...' dist/*~*+g*
 dev.venv/bin/twine upload dist/*~*+g*
+python -m venv --clear test.venv
+test.venv/bin/pip install python-project-helper
+test.venv/bin/pph project inspect
+
+rm -rf test.venv
 ----
