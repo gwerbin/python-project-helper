@@ -1,0 +1,212 @@
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>PPH (Python Project Helper) is a tool designed to help develop Python software projects.</p>
+</div>
+<div class="paragraph">
+<p>It is intended to be similar to <a href="https://python-poetry.org/">Poetry</a> or <a href="https://hatch.pypa.io/">Hatch</a>, in that it helps you do things like create isolated virtual environments for your project. However, it is <em>unlike</em> Poetry or Hatch in that it does not implement its own <a href="https://peps.python.org/pep-0517/">PEP 517</a> build backend. Instead, PPH works with <em>any</em> build backend, using existing tools to build packages using the standard PEP 517 interface.</p>
+</div>
+<div class="paragraph">
+<p>It is therefore also intended to be similar to <a href="https://pipenv.pypa.io/">Pipenv</a>, being primarily a wrapper around existing tools. However, it is <em>unlike</em> Pipenv in that Pipenv is explicitly only designed to support the case of building an "application" and not a "library". Instead, PPH makes no assumptions about the purpose or structure of your project.</p>
+</div>
+<div class="paragraph">
+<p>The PPH command-line and <code>pyproject.toml</code> interfaces are loosely inspired by Hatch, but I make no claim or attempt at direct compatibility.</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. Features</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature</th>
+<th class="tableblock halign-left valign-top">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automatically create venvs for your project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Done</strong> but still adding features</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect and extract project metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WIP</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON output for scripting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WIP</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run project scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build wheels, wrapping <a href="https://pypi.org/project/build/">Build</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upload to PyPI, wrapping <a href="https://pypi.org/project/twine/">Twine</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI documentation &amp; man page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable Python API with documentation + readthedocs hosting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test suite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI/CD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repo packaging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generate "locked" requirements files, wrapping <a href="https://pypi.org/project/pip-tools/">Pip-tools</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Better UI/UX: shell completion, separating detailed logs from informational output, progress bars, etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Matrix" environments and/or add an interface to Tox or Nox</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Speculative</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pass extra arguments to underlying tools (Pip, Venv, etc)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TODO</strong>/<strong>Speculative</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support <a href="https://pdm.fming.dev/latest/">PDM</a> as a drop-in replacement for Pip?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Speculative</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support <a href="https://virtualenv.pypa.io/">Virtualenv</a> as a drop-in replacement for Venv?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Speculative</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>I am deeply grateful to the many developers working hard on the Python packaging ecosystem, and I mean no disrespect or negativity towards other projects. I built this tool to meet my own needs, but I hope it will be useful to other people.</p>
+</div>
+<div class="paragraph">
+<p>Contributions are welcome, but I am doing this in my spare time and I can&#8217;t guarantee rapid movement on anything.</p>
+</div>
+<div class="paragraph">
+<p><strong>WARNING</strong>: PPH is <em>alpha-quality</em> software under active development. The CLI and its output formats are subject to change. Not currently suitable for scripting.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://pypa.github.io/pipx/">Pipx</a> is recommended for installing PPH for general-purpose use. However it may also be installed using Pip or any other PyPI-compatible package manager (such as PDM).</p>
+</div>
+<div class="paragraph">
+<p>In the future, I hope to package PPH for package managers such as Homebrew, Macports, Arch Linux, Debian, etc.</p>
+</div>
+<div class="listingblock">
+<div class="title">Installation</div>
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># Install into the current environment:
+pip install python-project-helper
+
+# Install into an isolated environment with Pipx:
+pipx install python-project-helper</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage">Usage</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Usage outline</div>
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">pph
+
+pph project
+pph project inspect
+
+pph env
+pph env create {name}
+pph env delete {name}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Virtual environments are created inside <code>+$XDG_STATE_HOME/python-project-helper/</code>. The format inside this directory is subject to change; do not depend on it for now.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dev_instructions">Dev instructions</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Recommended setup</div>
+<div class="content">
+<pre class="highlight"><code class="language-shell#setup-script" data-lang="shell#setup-script">#!/bin/sh
+
+set -eux
+
+git clone git@git.sr.ht:~wintershadows/python-project-helper pph
+cd pph
+
+git config user.name '...'
+git config user.email '...'
+git config user.signingkey '...'
+
+sourcehut='git@git.sr.ht:~wintershadows/python-project-helper'
+github='git@github.com:gwerbin/python-project-helper.git'
+git remote add sourcehut "$sourcehut"
+git remote add github "$github"
+git remote add all "$sourcehut"
+# https://stackoverflow.com/a/14290145/2954547
+git remote set-url --add --push all "$sourcehut"
+git remote set-url --add --push all "$github"
+
+python -m venv dev.venv
+dev.venv/bin/pip install --upgrade pip wheel
+dev.venv/bin/pip install \
+  --requirement requirements-dev.in \
+  --editable '.[tests]'
+
+source dev.venv/bin/activate</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Building</div>
+<div class="content">
+<pre class="highlight"><code class="language-shell#building" data-lang="shell#building"># Build a Python wheel
+dev.venv/bin/python -m build</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Publishing</div>
+<div class="content">
+<pre class="highlight"><code class="language-shell#building" data-lang="shell#building"># dev.venv/bin/twine upload --sign --identity '...' --repository testpypi dist/*~*+g*
+dev.venv/bin/twine upload --repository testpypi dist/*~*+g*
+python -m venv --clear test.venv
+test.venv/bin/pip install --index-url https://test.pypi.org/simple/ python-project-helper
+test.venv/bin/pph project inspect
+
+# dev.venv/bin/twine upload --sign --identity '...' dist/*~*+g*
+dev.venv/bin/twine upload dist/*~*+g*
+python -m venv --clear test.venv
+test.venv/bin/pip install python-project-helper
+test.venv/bin/pph project inspect
+
+rm -rf test.venv</code></pre>
+</div>
+</div>
+</div>
+</div>

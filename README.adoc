@@ -75,6 +75,12 @@ Virtual environments are created inside `+$XDG_STATE_HOME/python-project-helper/
 
 == Dev instructions
 
+Requires:
+* Python (with `venv`)
+* Make
+* AsciiDoctor
+* Pandoc
+
 .Recommended setup
 [source,shell#setup-script]
 ----
@@ -85,49 +91,23 @@ set -eux
 git clone git@git.sr.ht:~wintershadows/python-project-helper pph
 cd pph
 
-sourcehut='git@git.sr.ht:~wintershadows/python-project-helper'
-github='git@github.com:gwerbin/python-project-helper.git'
-
 git config user.name '...'
 git config user.email '...'
 git config user.signingkey '...'
 
-git remote add sourcehut "$sourcehut"
-git remote add github "$github"
-git remote add all "$sourcehut"
-# https://stackoverflow.com/a/14290145/2954547
-git remote set-url --add --push all "$sourcehut"
-git remote set-url --add --push all "$github"
-
-python -m venv dev.venv
-dev.venv/bin/pip install --upgrade pip wheel
-dev.venv/bin/pip install \
-  --requirement requirements-dev.in \
-  --editable '.[tests]'
-
+make setup
 source dev.venv/bin/activate
 ----
 
 .Building
 [source,shell#building]
 ----
-dev.venv/bin/python -m build
+make build-python
 ----
 
 .Publishing
 [source,shell#building]
 ----
-# dev.venv/bin/twine upload --sign --identity '...' --repository testpypi dist/*~*+g*
-dev.venv/bin/twine upload --repository testpypi dist/*~*+g*
-python -m venv --clear test.venv
-test.venv/bin/pip install --index-url https://test.pypi.org/simple/ python-project-helper
-test.venv/bin/pph project inspect
-
-# dev.venv/bin/twine upload --sign --identity '...' dist/*~*+g*
-dev.venv/bin/twine upload dist/*~*+g*
-python -m venv --clear test.venv
-test.venv/bin/pip install python-project-helper
-test.venv/bin/pph project inspect
-
-rm -rf test.venv
+make publish-testpypi
+make publish-pypi
 ----

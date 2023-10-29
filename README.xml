@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>PPH</title>
+<subtitle>Python Project Helper</subtitle>
+<date>2023-10-29</date>
+</info>
+<simpara>PPH (Python Project Helper) is a tool designed to help develop Python software projects.</simpara>
+<simpara>It is intended to be similar to <link xl:href="https://python-poetry.org/">Poetry</link> or <link xl:href="https://hatch.pypa.io/">Hatch</link>, in that it helps you do things like create isolated virtual environments for your project. However, it is <emphasis>unlike</emphasis> Poetry or Hatch in that it does not implement its own <link xl:href="https://peps.python.org/pep-0517/">PEP 517</link> build backend. Instead, PPH works with <emphasis>any</emphasis> build backend, using existing tools to build packages using the standard PEP 517 interface.</simpara>
+<simpara>It is therefore also intended to be similar to <link xl:href="https://pipenv.pypa.io/">Pipenv</link>, being primarily a wrapper around existing tools. However, it is <emphasis>unlike</emphasis> Pipenv in that Pipenv is explicitly only designed to support the case of building an "application" and not a "library". Instead, PPH makes no assumptions about the purpose or structure of your project.</simpara>
+<simpara>The PPH command-line and <literal>pyproject.toml</literal> interfaces are loosely inspired by Hatch, but I make no claim or attempt at direct compatibility.</simpara>
+<table frame="all" rowsep="1" colsep="1">
+<title>Features</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Feature</entry>
+<entry align="left" valign="top">Status</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Automatically create venvs for your project</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Done</emphasis> but still adding features</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inspect and extract project metadata</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">WIP</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>JSON output for scripting</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">WIP</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Run project scripts</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Build wheels, wrapping <link xl:href="https://pypi.org/project/build/">Build</link></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Upload to PyPI, wrapping <link xl:href="https://pypi.org/project/twine/">Twine</link></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CLI documentation &amp; man page</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Stable Python API with documentation + readthedocs hosting</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Test suite</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CI/CD</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Repo packaging</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Generate "locked" requirements files, wrapping <link xl:href="https://pypi.org/project/pip-tools/">Pip-tools</link></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Better UI/UX: shell completion, separating detailed logs from informational output, progress bars, etc.</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>"Matrix" environments and/or add an interface to Tox or Nox</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Speculative</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Pass extra arguments to underlying tools (Pip, Venv, etc)</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">TODO</emphasis>/<emphasis role="strong">Speculative</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Support <link xl:href="https://pdm.fming.dev/latest/">PDM</link> as a drop-in replacement for Pip?</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Speculative</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Support <link xl:href="https://virtualenv.pypa.io/">Virtualenv</link> as a drop-in replacement for Venv?</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Speculative</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>I am deeply grateful to the many developers working hard on the Python packaging ecosystem, and I mean no disrespect or negativity towards other projects. I built this tool to meet my own needs, but I hope it will be useful to other people.</simpara>
+<simpara>Contributions are welcome, but I am doing this in my spare time and I can&#8217;t guarantee rapid movement on anything.</simpara>
+<simpara><emphasis role="strong">WARNING</emphasis>: PPH is <emphasis>alpha-quality</emphasis> software under active development. The CLI and its output formats are subject to change. Not currently suitable for scripting.</simpara>
+<section xml:id="_installation">
+<title>Installation</title>
+<simpara><link xl:href="https://pypa.github.io/pipx/">Pipx</link> is recommended for installing PPH for general-purpose use. However it may also be installed using Pip or any other PyPI-compatible package manager (such as PDM).</simpara>
+<simpara>In the future, I hope to package PPH for package managers such as Homebrew, Macports, Arch Linux, Debian, etc.</simpara>
+<formalpara>
+<title>Installation</title>
+<para>
+<programlisting language="shell" linenumbering="unnumbered"># Install into the current environment:
+pip install python-project-helper
+
+# Install into an isolated environment with Pipx:
+pipx install python-project-helper</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_usage">
+<title>Usage</title>
+<formalpara>
+<title>Usage outline</title>
+<para>
+<programlisting language="shell" linenumbering="unnumbered">pph
+
+pph project
+pph project inspect
+
+pph env
+pph env create {name}
+pph env delete {name}</programlisting>
+</para>
+</formalpara>
+<simpara>Virtual environments are created inside <literal>+$XDG_STATE_HOME/python-project-helper/</literal>. The format inside this directory is subject to change; do not depend on it for now.</simpara>
+</section>
+<section xml:id="_dev_instructions">
+<title>Dev instructions</title>
+<simpara>Requires:
+* Python (with <literal>venv</literal>)
+* Make
+* AsciiDoctor
+* Pandoc</simpara>
+<formalpara>
+<title>Recommended setup</title>
+<para>
+<programlisting language="shell#setup-script" linenumbering="unnumbered">#!/bin/sh
+
+set -eux
+
+git clone git@git.sr.ht:~wintershadows/python-project-helper pph
+cd pph
+
+git config user.name '...'
+git config user.email '...'
+git config user.signingkey '...'
+
+make setup
+source dev.venv/bin/activate</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Building</title>
+<para>
+<programlisting language="shell#building" linenumbering="unnumbered">make build-python</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Publishing</title>
+<para>
+<programlisting language="shell#building" linenumbering="unnumbered">make publish-testpypi
+make publish-pypi</programlisting>
+</para>
+</formalpara>
+</section>
+</article>
