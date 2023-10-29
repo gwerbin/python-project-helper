@@ -14,9 +14,9 @@ README.md: README.xml
 	pandoc --from=docbook --to=gfm --output=$@ $<
 	test -n '$(NOGIT)' || git add $@
 
-README.html: README.adoc
-	asciidoctor --backend=html5 --doctype=article --embedded --out-file=$@ $<
-	test -n '$(NOGIT)' || git add $@
+# README.html: README.adoc
+# 	asciidoctor --backend=html5 --doctype=article --embedded --out-file=$@ $<
+# 	test -n '$(NOGIT)' || git add $@
 
 
 .PHONY: build-python
