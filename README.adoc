@@ -68,6 +68,7 @@ pph project inspect
 pph env
 pph env create {name}
 pph env delete {name}
+pph env show {name}
 ----
 
 Virtual environments are created inside `+$XDG_STATE_HOME/python-project-helper/`. The format inside this directory is subject to change; do not depend on it for now.
